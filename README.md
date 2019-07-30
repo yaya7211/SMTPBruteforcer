@@ -4,8 +4,9 @@ python3 SMTP bruteforcer
 
 *How to use*
 
-```python3 SMTPBruteforcer.py xxx@email.dns smtp.exemple.com:PORT gen minimallenght maximallenght charset```
-To generate and attack, if the request fail between your computer and the server, the password tried will be saved in a text file.
+```python3 SMTPBruteforcer.py xxx@email.dns smtp.exemple.com:PORT gen minimallenght maximallenght charset start```
+To generate and attack, if the request fail between your computer and the server, you can continue from where you stopped using
+```python3 SMTPBruteforcer.py xxx@email.dns smtp.exemple.com:PORT gen minimallenght maximallenght charset theLastPasswordTried```
 
 ```python3 SMTPBruteforcer.py xxx@email.dns smtp.exemple.com:PORT yourwordlist.txt NumberOfLinesOfTheWordlist```
 To use your own wordlist.
